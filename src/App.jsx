@@ -1,26 +1,19 @@
-import { useState } from 'react';
-import menus from './data';
-import Categories from './Components/Categories';
-import Menu from './Components/Menu';
-
-const allCategories = ['all', ...new Set(menus.map(menu => menu.category))]
+import { useState } from "react";
+import menus from "./data";
+import Categories from "./Components/Categories";
+import Menu from "./Components/Menu";
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
-  console.log(allCategories);
+  const onChangeCategory = (category) => {
+    setSelectedCategory(category);
+  };
 
-  const [allMenus, setAllMenus] = useState(menus)
-  const [categories, setCategories] = useState(allCategories)
-
-  const filterMenus = (category) => {
-    if (category === 'all') {
-      setAllMenus(menus)
-      return
-    }
-
-    let filteredMenus = menus.filter(menu => menu.category === category)
-    setAllMenus(filteredMenus)
-  }
+  const filteredMenus =
+    selectedCategory === "all"
+      ? menus
+      : menus.filter((menu) => menu.category === selectedCategory);
 
   return (
     <main>
@@ -29,8 +22,11 @@ function App() {
           <h2>our menu</h2>
           <div className="underline"></div>
         </div>
-        <Categories categories={categories} filterMenus={filterMenus} />
-        <Menu allMenus={allMenus} />
+        <Categories
+          selectedCategory={selectedCategory}
+          onChangeCategory={onChangeCategory}
+        />
+        <Menu allMenus={filteredMenus} />
       </section>
     </main>
   );

@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import menus from "../data";
 
-const Categories = ({ categories, filterMenus }) => {
-  const [mainCategory, setMainCategory] = useState("all");
+const categories = ["all", ...new Set(menus.map((menu) => menu.category))];
 
+const Categories = ({ onChangeCategory, selectedCategory }) => {
   return (
     <div className="btn-container">
-      {categories.map((category, index) => (
+      {categories.map((category) => (
         <button
-          key={index}
+          key={category}
           type="button"
           className={
-            category === mainCategory ? "filter-btn highlight" : "filter-btn"
+            category === selectedCategory
+              ? "filter-btn highlight"
+              : "filter-btn"
           }
           onClick={() => {
-            setMainCategory(category)
-            filterMenus(category)
+            onChangeCategory(category);
           }}
         >
           {category}
