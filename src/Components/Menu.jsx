@@ -1,6 +1,5 @@
 const Menu = ({ allMenus }) => {
   return (
-    <>
       <div className="section-center">
         {allMenus.map((menu) => {
           return (
@@ -17,7 +16,6 @@ const Menu = ({ allMenus }) => {
           );
         })}
       </div>
-    </>
   );
 };
 
